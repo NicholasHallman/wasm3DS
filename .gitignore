@@ -3,5 +3,5 @@ wasm-3ds.elf
 wasm-3ds.smdh
 
 /app/target
-lib
-include
+/lib
+/include
