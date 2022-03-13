@@ -12,14 +12,26 @@
 #include "3ds_wasm.h"
 
 int main(void) {
+
+    gfxInitDefault();
+    consoleInit(GFX_TOP, NULL);
+
+    printf("Loading WASM Module...!\n");
+
     IM3Environment env = m3_NewEnvironment();
-    IM3Runtime runtime = m3_NewRuntime(env, 1024, NULL);
+    IM3Runtime runtime = m3_NewRuntime(env, 1000000, NULL);
     IM3Module module;
-    m3_ParseModule(env, &module, __app_target_wasm32_unknown_unknown_debug_app_wasm, __app_target_wasm32_unknown_unknown_debug_app_wasm_len);
+    m3_ParseModule(env, &module, __target_wasm32_unknown_unknown_debug_app_wasm, __target_wasm32_unknown_unknown_debug_app_wasm_len);
     m3_LoadModule(runtime, module);
     Link3DSFunctions(module);
     IM3Function f;
     m3_FindFunction(&f, runtime, "main");
-    m3_CallV(f, 10);
+    M3Result result = m3_CallV(f, 10);
+
+    printf(result);
+
+    while (aptMainLoop()) {}
+
+    gfxExit();
     return 0;
 }

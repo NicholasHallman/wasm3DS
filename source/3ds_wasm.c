@@ -2,6 +2,44 @@
 #include "3ds_wasm.h"
 #include <3ds.h>
 
-void Link3DSFunctions(IM3Module module) {
+m3ApiRawFunction(m3_aptMainLoop) {
+    m3ApiReturnType(bool)
+    m3ApiReturn(aptMainLoop());
+}
 
+m3ApiRawFunction(m3_gspWaitForVBlank) {
+    aptMainLoop();
+    m3ApiSuccess();
+}
+
+m3ApiRawFunction(m3_gfxSwapBuffers) {
+    gfxSwapBuffers();
+    m3ApiSuccess();
+}
+
+m3ApiRawFunction(m3_hidScanInput) {
+    hidScanInput();
+    m3ApiSuccess();
+}
+
+m3ApiRawFunction(m3_hidKeysDown) {
+    m3ApiReturnType(u32)
+    m3ApiReturn(hidKeysDown());
+}
+
+m3ApiRawFunction(m3_printf) {
+    m3ApiGetArgMem(const char *, i_ptr);
+    printf(i_ptr);
+    m3ApiSuccess();
+}
+
+
+
+void Link3DSFunctions(IM3Module module) {
+    m3_LinkRawFunction(module, "3ds", "aptMainLoop", "i()", &m3_aptMainLoop);
+    m3_LinkRawFunction(module, "3ds", "gspWaitForVBlank", "v()", &m3_gspWaitForVBlank);
+    m3_LinkRawFunction(module, "3ds", "gfxSwapBuffers", "v()", &m3_gfxSwapBuffers);
+    m3_LinkRawFunction(module, "3ds", "hidScanInput", "v()", &m3_hidScanInput);
+    m3_LinkRawFunction(module, "3ds", "hidKeysDown", "i()", &m3_hidKeysDown);
+    m3_LinkRawFunction(module, "3ds", "printf", "v(i)", &m3_printf);
 }

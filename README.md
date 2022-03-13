@@ -1,3 +1,5 @@
-# template
+# wasm3DS
 
-This is a template for starting new 3DS libctru projects.
+Run wasm apps on the 3ds.
+
+This is super early and doesn't really work yet.
