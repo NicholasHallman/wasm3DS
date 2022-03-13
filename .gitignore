@@ -5,3 +5,5 @@ wasm-3ds.smdh
 /app/target
 /lib
 /include
+/examples/**/target
+/source/app.wasm.h

@@ -1,0 +1,1 @@
+C:/devkitpro/tools/bin/3dslink -a "192.168.2.64" "wasm-3ds.3dsx" 

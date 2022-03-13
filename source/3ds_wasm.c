@@ -33,6 +33,10 @@ m3ApiRawFunction(m3_printf) {
     m3ApiSuccess();
 }
 
+m3ApiRawFunction(m3_console_clear) {
+    consoleClear();
+    m3ApiSuccess();
+}
 
 
 void Link3DSFunctions(IM3Module module) {
@@ -42,4 +46,5 @@ void Link3DSFunctions(IM3Module module) {
     m3_LinkRawFunction(module, "3ds", "hidScanInput", "v()", &m3_hidScanInput);
     m3_LinkRawFunction(module, "3ds", "hidKeysDown", "i()", &m3_hidKeysDown);
     m3_LinkRawFunction(module, "3ds", "printf", "v(i)", &m3_printf);
+    m3_LinkRawFunction(module, "3ds", "consoleClear", "v()", &m3_console_clear);
 }
