@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "wasm3.h": "c",
+        "3ds.h": "c",
+        "3ds_wasm.h": "c",
+        "app.wasm.h": "c",
+        "m3_env.h": "c"
+    }
+}
