@@ -14,7 +14,8 @@
 int main(void) {
 
     gfxInitDefault();
-    consoleInit(GFX_TOP, NULL);
+    PrintConsole *bottom = consoleInit(GFX_BOTTOM, NULL);
+    consoleSelect(bottom);
 
     printf("Loading WASM Module...!\n");
 
@@ -28,7 +29,26 @@ int main(void) {
     m3_FindFunction(&f, runtime, "main");
     M3Result result = m3_CallV(f, 10);
 
+    consoleClear();
+    consoleSelect(bottom);
+    gfxFlushBuffers();
+    gfxSwapBuffers();
+    gspWaitForVBlank();
+    printf("WASM Module Finished\n");
     printf(result);
+
+    while (aptMainLoop()) {
+        hidScanInput();
+        
+        u32 keys = hidKeysDown();
+        if ((keys & 8 ) == 8) {
+            break;
+        }
+
+        gfxFlushBuffers();
+        gfxSwapBuffers();
+        gspWaitForVBlank();
+    };
 
     gfxExit();
     return 0;
